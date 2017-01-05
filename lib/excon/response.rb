@@ -183,7 +183,7 @@ module Excon
           datum[:response][:headers][last_key] << ' ' << data.rstrip
         else
           key, value = data.split(':', 2)
-          raise Excon::Error::ResponseParse, 'malformed header' unless value
+          raise Excon::Error::ResponseParse, "malformed header: no value at key: '#{key}'" unless value
           # add key/value or append value to existing values
           datum[:response][:headers][key] = ([datum[:response][:headers][key]] << value.strip).compact.join(', ')
           if key.casecmp('Set-Cookie') == 0
